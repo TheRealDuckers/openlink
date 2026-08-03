@@ -1,0 +1,70 @@
+/* Mobile / bottom navigation styles - Android 16 inspired simple style */
+.mobile-nav {
+  position: fixed;
+  left: 12px;
+  right: 12px;
+  bottom: 12px;
+  height: 64px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(0,0,0,0.12));
+  backdrop-filter: blur(6px);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.45);
+  z-index: 1200;
+  padding: 6px 8px;
+}
+
+.nav-button {
+  -webkit-tap-highlight-color: transparent;
+  appearance: none;
+  background: transparent;
+  border: none;
+  color: #e6eef8;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  font-size: 11px;
+  line-height: 1;
+  padding: 6px 12px;
+  border-radius: 8px;
+  min-width: 56px;
+  cursor: pointer;
+}
+
+.nav-button:active {
+  transform: translateY(1px);
+}
+
+.icon-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  color: #cfe7ff;
+}
+
+.label {
+  font-size: 10px;
+  opacity: 0.95;
+  color: #dcecff;
+}
+
+.nav-button:hover {
+  background: rgba(255,255,255,0.02);
+}
+
+/* Active state - when a button has .active (JS can toggle if desired) */
+.nav-button.active {
+  color: #102a43;
+  background: linear-gradient(180deg, #a7d8ff, #74b9ff);
+}
+
+/* Hide on larger screens (we'll also conditionally not render) */
+@media (min-width: 600px) {
+  .mobile-nav { display: none !important; }
+}

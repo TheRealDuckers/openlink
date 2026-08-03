@@ -4,6 +4,7 @@ import { useEdulink } from "../api/edulink";
 import { useNavigate } from "@solidjs/router";
 import { createStore } from "solid-js/store";
 const Navigation = lazy(() => import("../components/navigation"));
+const BottomNav = lazy(() => import("../components/bottomNav"));
 import Header from "../components/header";
 import Footer from "../components/footer";
 import Settings from "../components/settings";
@@ -570,21 +571,24 @@ function Main(props: Readonly<{ status: StatusResponse["result"] | null }>) {
             theme={state.theme}
           />
         </Show>
-        <Navigation
-          sessionData={sessionData as Accessor<SessionData>}
-          setProgress={(value: number) => setState("progress", value)}
-          setPrevPos={(value: number | null) => setState("prevPos", value)}
-          progress={() => state.progress}
-          edulink={edulink}
-          setLoadedComponent={setLoadedComponent}
-          loadedComponent={LoadedComponent}
-          loadItemPage={loadItemPage}
-          navAnimFinished={(value: boolean) => setState("navWheelAnim", value)}
-          onResetNav={(fn) => (resetNavFn = fn)}
-          openNav={(fn) => (openNavFn = fn)}
-          navInitialLoad={(value: boolean) => setState("navInitalLoadDone", value)}
-          theme={state.theme}
-        />
+        <Show when={state.screenWidth >= 600}>
+          <Navigation
+            sessionData={sessionData as Accessor<SessionData>}
+            setProgress={(value: number) => setState("progress", value)}
+            setPrevPos={(value: number | null) => setState("prevPos", value)}
+            progress={() => state.progress}
+            edulink={edulink}
+            setLoadedComponent={setLoadedComponent}
+            loadedComponent={LoadedComponent}
+            loadItemPage={loadItemPage}
+            navAnimFinished={(value: boolean) => setState("navWheelAnim", value)}
+            onResetNav={(fn) => (resetNavFn = fn)}
+            openNav={(fn) => (openNavFn = fn)}
+            navInitialLoad={(value: boolean) => setState("navInitalLoadDone", value)}
+            theme={state.theme}
+          />
+        </Show>
+
         <Show when={state.navWheelAnim && LoadedComponent()}>
           {(Comp) => {
             let itemBoxEl: HTMLDivElement | undefined;
@@ -676,6 +680,7 @@ function Main(props: Readonly<{ status: StatusResponse["result"] | null }>) {
             </div>
           </div>
         </Show>
+
         <Footer
           sessionData={sessionData as Accessor<SessionData>}
           setSession={setSession}
@@ -686,6 +691,16 @@ function Main(props: Readonly<{ status: StatusResponse["result"] | null }>) {
           theme={state.theme}
           notificationPermission={notificationPermission}
         />
+
+        <Show when={state.screenWidth < 600}>
+          <BottomNav
+            sessionData={sessionData as Accessor<SessionData>}
+            loadItemPage={loadItemPage}
+            edulink={edulink}
+            status={state.status}
+            clubData={state.clubData}
+          />
+        </Show>
       </div>
     </Show>
   );
