@@ -1,5 +1,4 @@
 import { JSXElement } from 'solid-js';
-import type { ToastContextType } from './components/toast';
 
 interface globals {
   __TAURI__?: {
